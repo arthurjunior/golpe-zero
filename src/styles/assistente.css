@@ -1,0 +1,120 @@
+/* ==========================================================================
+   assistente.css — estilos do assistente educativo.
+   Usado por src/components/Assistente.jsx (aparece nas duas simulações).
+   ========================================================================== */
+
+.assistente {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.35rem;
+  background-color: var(--cor-superficie);
+  border: 2px solid var(--cor-primaria);
+  border-left-width: 8px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* A borda e o rótulo mudam conforme o tipo de orientação. */
+.assistente--seguro {
+  border-color: var(--cor-verde);
+}
+
+.assistente--risco {
+  border-color: var(--cor-perigo);
+}
+
+.assistente--atencao {
+  border-color: var(--cor-alerta);
+}
+
+/* --- Rótulo do tipo de orientação (texto + ícone) ------------------------ */
+.assistente__rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--cor-primaria-escura);
+  background-color: #e8f0fd;
+  border-radius: 999px;
+}
+
+.assistente--seguro .assistente__rotulo {
+  color: var(--cor-verde);
+  background-color: var(--cor-verde-suave);
+}
+
+.assistente--risco .assistente__rotulo {
+  color: var(--cor-perigo);
+  background-color: var(--cor-perigo-suave);
+}
+
+.assistente--atencao .assistente__rotulo {
+  color: var(--cor-alerta);
+  background-color: var(--cor-alerta-suave);
+}
+
+/* --- Texto da orientação (fica sempre visível, mesmo com áudio tocando) --- */
+.assistente__titulo {
+  font-size: 1.25rem;
+}
+
+.assistente__texto {
+  font-size: 1.05rem;
+  color: var(--cor-texto);
+}
+
+.assistente__dica {
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo);
+  border-left: 4px solid var(--cor-primaria);
+  border-radius: 10px;
+}
+
+/* --- Botões -------------------------------------------------------------- */
+.assistente__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.assistente__acoes .btn--bloco {
+  flex: 1 1 100%;
+}
+
+.assistente__aviso {
+  flex: 1 1 100%;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  color: var(--cor-texto-suave);
+  background-color: var(--cor-fundo);
+  border-radius: 10px;
+}
+
+/* --- Ajustes para celulares ---------------------------------------------
+   Em telas pequenas todos os botões ficam com a largura total: alvos grandes
+   e sem dúvida sobre onde tocar. */
+@media (max-width: 560px) {
+  .assistente {
+    padding: 1.1rem 1rem 1.2rem;
+  }
+
+  .assistente__titulo {
+    font-size: 1.15rem;
+  }
+
+  .assistente__texto {
+    font-size: 1rem;
+  }
+
+  .assistente__acoes .btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}

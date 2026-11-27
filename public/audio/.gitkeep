@@ -1,0 +1,4 @@
+# Esta pasta guarda os áudios da simulação (arquivos .mp3).
+# Coloque aqui os arquivos, por exemplo:
+#   public/audio/banco-etapa-1.mp3
+# Os nomes usados hoje estão em src/data/bancoFalso.js (campo "audioUrl").

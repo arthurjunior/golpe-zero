@@ -1,0 +1,17 @@
+# Dependências instaladas
+node_modules
+
+# Arquivos gerados pelo build
+dist
+dist-ssr
+
+# Arquivos locais do editor / sistema
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.local
+
+# Logs
+*.log
+npm-debug.log*

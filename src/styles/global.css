@@ -1,0 +1,158 @@
+/* ==========================================================================
+   global.css — estilos que valem para TODO o aplicativo.
+   Reúne: reinicialização básica, variáveis de cor e os estilos dos
+   componentes reutilizáveis (botão e páginas em construção).
+   ========================================================================== */
+
+/* --- Variáveis do projeto -------------------------------------------------
+   Mudando um valor aqui, ele muda em todas as telas de uma só vez. */
+:root {
+  --cor-primaria: #0b57d0; /* azul: transmite segurança e confiança */
+  --cor-primaria-escura: #0842a0;
+  --cor-fundo: #f2f6fc; /* fundo claro e confortável para leitura */
+  --cor-superficie: #ffffff;
+  --cor-texto: #1f2933;
+  --cor-texto-suave: #4a5568;
+  --cor-verde: #146c43;
+  --cor-verde-suave: #e7f4ec;
+  --cor-alerta: #9a5b00; /* âmbar escuro: usado em avisos ("fique atento") */
+  --cor-alerta-suave: #fdf1dc;
+  --cor-perigo: #b3261e; /* vermelho: usado em riscos e em ações de perigo */
+  --cor-perigo-suave: #fdeceb;
+  --cor-borda: #d7e1f0;
+  --raio: 16px;
+  --sombra: 0 10px 30px rgba(15, 40, 80, 0.08);
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --altura-minima-botao: 60px; /* bom tamanho de toque em celulares */
+}
+
+/* --- Reinicialização básica ---------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px; /* fonte base confortável para pessoas idosas */
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+code {
+  padding: 0.15rem 0.4rem;
+  font-size: 0.9em;
+  color: var(--cor-primaria-escura);
+  background-color: #eef3fb;
+  border-radius: 6px;
+}
+
+/* Foco sempre bem visível: importante para quem navega pelo teclado. */
+:focus-visible {
+  outline: 3px solid var(--cor-primaria);
+  outline-offset: 3px;
+}
+
+/* --- Botão reutilizável (src/components/Button.jsx) ---------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--altura-minima-botao);
+  padding: 0.85rem 2.25rem;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--cor-primaria);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(11, 87, 208, 0.28);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--cor-primaria-escura);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Variação "secundário": fundo branco com borda. Usada em ações de apoio,
+   como "Ouvir orientação", "Repetir áudio" e "Sair da simulação". */
+.btn--secundario {
+  color: var(--cor-primaria-escura);
+  background-color: var(--cor-superficie);
+  border: 2px solid var(--cor-primaria);
+  box-shadow: none;
+}
+
+.btn--secundario:hover {
+  color: #ffffff;
+  background-color: var(--cor-primaria);
+}
+
+/* Variação "perigo": ação de risco, como "Encerrar ligação". */
+.btn--perigo {
+  background-color: var(--cor-perigo);
+  box-shadow: 0 6px 16px rgba(179, 38, 30, 0.26);
+}
+
+.btn--perigo:hover {
+  background-color: #8f1d17;
+}
+
+/* Botão que ocupa a largura toda do espaço disponível. */
+.btn--bloco {
+  width: 100%;
+}
+
+/* ícone dentro do botão: um pequeno espaço antes do texto */
+.btn svg {
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+/* --- Acessibilidade: texto só para leitores de tela ---------------------
+   A classe esconde o texto visualmente, mas ele continua sendo lido em voz
+   alta por leitores de tela. Serve para explicar, por palavra, o que os
+   elementos visuais (cores, ícones, avatar) já mostram. */
+.sr-apenas {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+

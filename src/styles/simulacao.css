@@ -1,0 +1,540 @@
+/* ==========================================================================
+   simulacao.css — estilos COMPARTILHADOS pelas duas simulações.
+   Contém: estrutura da página, indicador de progresso, botões de decisão,
+   cartão de incentivo e a tela de conclusão.
+   ========================================================================== */
+
+/* --- Estrutura da página de simulação ------------------------------------ */
+.pagina-simulacao {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 1rem 2.5rem;
+}
+
+.pagina-simulacao__conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 980px; /* espaço para o celular + o painel auxiliar lado a lado */
+}
+
+.pagina-simulacao__saida {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   LAYOUT COM O CELULAR + PAINEL AUXILIAR
+   Em telas grandes: celular de um lado, orientações do outro (lado a lado).
+   Em telas pequenas: um embaixo do outro, sem rolagem horizontal.
+   ========================================================================== */
+.simulacao-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.simulacao-layout__aparelho {
+  display: flex;
+  justify-content: center;
+}
+
+.simulacao-layout__painel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .simulacao-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .simulacao-layout__aparelho {
+    /* Largura fixa e realista no computador: o app tem sempre o mesmo tamanho de
+       aparelho, independentemente do conteúdo interno. */
+    flex: 0 0 340px;
+  }
+
+  .simulacao-layout__painel {
+    flex: 1 1 auto;
+  }
+}
+
+/* ==========================================================================
+   MOLDURA DE SMARTPHONE (usada nas duas simulações)
+   ========================================================================== */
+.smartphone {
+  width: 100%;
+  /* Largura responsiva com limite realista de aparelho (não fica "largo" demais). */
+  max-width: 340px;
+  margin: 0 auto;
+  /* Impede que o Flexbox comprima ("achate") o aparelho quando ele divide a
+     linha com o painel auxiliar em telas grandes. */
+  flex-shrink: 0;
+}
+
+.smartphone__tela {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Proporção vertical realista (9:19,5). A ALTURA é calculada a partir da
+     largura, então o aparelho fica sempre bem mais alto do que largo — e não
+     fica achatado quando a janela é baixa (era o problema da altura em "vh"). */
+  aspect-ratio: 9 / 19.5;
+  height: auto;
+  overflow: hidden;
+  background-color: var(--cor-superficie);
+  border: 12px solid #1b1d21; /* borda que imita a carcaça do aparelho */
+  border-radius: 40px;
+  box-shadow: 0 22px 50px rgba(15, 40, 80, 0.3);
+}
+
+/* Tela escura (usada na simulação de ligação). */
+.smartphone__tela--escura {
+  color: #ffffff;
+  background: linear-gradient(180deg, #1a2129 0%, #0b0f13 100%);
+  border-color: #05070a;
+}
+
+/* "Notch": o recorte no topo do aparelho (só decorativo). */
+.smartphone__notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 5;
+  width: 96px;
+  height: 20px;
+  background-color: #05070a;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.smartphone__nota {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Barra de status do topo (horário, sinal, Wi-Fi, bateria) ----------- */
+.barra-status {
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1rem 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-texto);
+}
+
+.barra-status__icones {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.smartphone__tela--escura .barra-status {
+  color: #ffffff;
+}
+
+/* --- "Equalizador": mostra que o áudio está tocando --------------------- */
+.onda {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+}
+
+.onda > span {
+  width: 4px;
+  height: 6px;
+  background-color: #2ecc71;
+  border-radius: 2px;
+}
+
+.onda--ativa > span {
+  animation: onda-pulsar 0.9s ease-in-out infinite;
+}
+
+.onda--ativa > span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.onda--ativa > span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.onda--ativa > span:nth-child(4) {
+  animation-delay: 0.45s;
+}
+
+.onda--ativa > span:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+@keyframes onda-pulsar {
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 20px;
+  }
+}
+
+/* --- Painel de decisões (fora do celular) ------------------------------- */
+.decisoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.4rem;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.decisoes__titulo {
+  font-size: 1.15rem;
+  color: var(--cor-primaria-escura);
+}
+
+.decisoes__pergunta {
+  font-size: 1.05rem;
+  color: var(--cor-texto);
+}
+
+.opcao__icone {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--cor-primaria);
+  background-color: #eef3fb;
+  border-radius: 50%;
+}
+
+.opcao__texto {
+  flex: 1;
+}
+
+/* --- Aviso de áudio indisponível ---------------------------------------- */
+.aviso-audio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  color: var(--cor-alerta);
+  background-color: var(--cor-alerta-suave);
+  border: 1px solid #f0d9a8;
+  border-radius: 14px;
+}
+
+.aviso-audio__texto {
+  font-size: 0.98rem;
+}
+
+/* Pequena nota usada no painel enquanto o áudio toca. */
+.painel-nota {
+  padding: 1rem 1.1rem;
+  font-size: 1rem;
+  color: var(--cor-texto-suave);
+  background-color: var(--cor-superficie);
+  border: 1px dashed var(--cor-borda);
+  border-radius: 14px;
+}
+
+/* --- Indicador de progresso (src/components/Progresso.jsx) --------------- */
+.progresso {
+  padding: 1.1rem 1.25rem;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.progresso__linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.progresso__fase {
+  font-weight: 800;
+  color: var(--cor-primaria-escura);
+}
+
+.progresso__contagem {
+  font-size: 0.95rem;
+  color: var(--cor-texto-suave);
+}
+
+.progresso__titulo {
+  margin: 0.35rem 0 0;
+  font-size: 1.1rem;
+}
+
+.progresso__barra {
+  height: 14px;
+  margin-top: 0.75rem;
+  overflow: hidden;
+  background-color: #e6edf8;
+  border-radius: 999px;
+}
+
+.progresso__preenchimento {
+  display: block;
+  height: 100%;
+  background-color: var(--cor-primaria);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* --- Botões de decisão (usados no chat e na ligação) ---------------------
+   São grandes, com borda visível e ícone + texto, para ficarem fáceis de
+   identificar e de tocar. Nada indica qual opção é "certa": o usuário decide. */
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 64px;
+  padding: 0.9rem 1.25rem;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  text-align: left;
+  background-color: var(--cor-superficie);
+  border: 2px solid var(--cor-borda);
+  border-radius: 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.opcao:hover {
+  background-color: #eef3fb;
+  border-color: var(--cor-primaria);
+}
+
+.opcao:active {
+  transform: translateY(1px);
+}
+
+/* O ícone fica colorido, mas o texto já explica tudo: a cor não é essencial. */
+.opcao .opcao__icone svg {
+  color: inherit;
+}
+
+/* --- Cartão de incentivo no fim de cada fase ---------------------------- */
+.incentivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background-color: var(--cor-superficie);
+  border: 2px solid var(--cor-verde);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.incentivo__selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cor-verde);
+  background-color: var(--cor-verde-suave);
+  border-radius: 999px;
+}
+
+.incentivo__titulo {
+  font-size: 1.5rem;
+}
+
+.incentivo__texto {
+  color: var(--cor-texto-suave);
+}
+
+/* --- Tela de conclusão (src/components/TelaConclusao.jsx) -------------- */
+.conclusao {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.25rem 2.5rem;
+}
+
+.conclusao__cartao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 640px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.conclusao__selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cor-verde);
+  background-color: var(--cor-verde-suave);
+  border-radius: 999px;
+}
+
+.conclusao__titulo {
+  font-size: 1.8rem;
+}
+
+.conclusao__texto {
+  color: var(--cor-texto-suave);
+}
+
+.conclusao__subtitulo {
+  align-self: stretch;
+  padding-top: 0.75rem;
+  font-size: 1.15rem;
+  text-align: left;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.conclusao__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-self: stretch;
+}
+
+.conclusao__item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  text-align: left;
+  background-color: var(--cor-fundo);
+  border-radius: 12px;
+}
+
+.conclusao__item-icone {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: var(--cor-verde);
+  background-color: var(--cor-verde-suave);
+  border-radius: 50%;
+}
+
+.conclusao__acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-self: stretch;
+  width: 100%;
+}
+
+.conclusao__rodape {
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Ajustes para celulares --------------------------------------------- */
+@media (max-width: 560px) {
+  .pagina-simulacao {
+    padding: 0.9rem 0.8rem 2rem;
+  }
+
+  .pagina-simulacao__conteudo {
+    gap: 1rem;
+  }
+
+  .progresso__titulo {
+    font-size: 1rem;
+  }
+
+  .conclusao__cartao {
+    padding: 1.75rem 1.15rem;
+  }
+
+  .conclusao__titulo {
+    font-size: 1.45rem;
+  }
+
+  .incentivo__titulo {
+    font-size: 1.25rem;
+  }
+
+  .opcao {
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+  }
+
+  /* Em celulares a moldura usa a largura disponível e mantém a mesma proporção
+     vertical (a altura continua sendo calculada pela largura, via aspect-ratio). */
+  .smartphone__tela {
+    border-width: 10px;
+    border-radius: 34px;
+  }
+
+  .smartphone__notch {
+    width: 80px;
+    height: 17px;
+  }
+
+  .decisoes {
+    padding: 1rem;
+  }
+}
+
+/* --- Movimento reduzido -------------------------------------------------
+   Quem prefere menos animações (configuração do sistema) não vê a barra
+   de progresso se movimentando. */
+@media (prefers-reduced-motion: reduce) {
+  .progresso__preenchimento,
+  .opcao {
+    transition: none;
+  }
+
+  /* Sem o "equalizador" piscando: o texto ao lado já avisa o que está acontecendo. */
+  .onda--ativa > span {
+    animation: none;
+  }
+}

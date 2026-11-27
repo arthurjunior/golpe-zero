@@ -1,0 +1,225 @@
+/* ==========================================================================
+   ligacao.css — visual da Fase 2 (ligação de banco falso).
+   O desenho da moldura do celular está em simulacao.css (classe .smartphone).
+   Aqui ficam: tela de chamada recebida, chamada em andamento e seus botões.
+   Inspirado na tela de chamada de um celular, sem marcas ou logotipos oficiais.
+   ========================================================================== */
+
+/* --- Estrutura geral da tela de chamada --------------------------------- */
+.chamada {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 0;
+  padding: 0.6rem 1.1rem 1.4rem;
+  text-align: center;
+}
+
+.chamada__estado {
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: #a9b4bd;
+}
+
+.chamada__nome {
+  font-size: 1.45rem;
+  color: #ffffff;
+}
+
+.chamada__numero {
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  color: #b9c4cd;
+}
+
+/* --- Chamada recebida (antes de atender) --------------------------------- */
+.chamada__foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  margin: 0.75rem 0 0.25rem;
+  color: #cfe0ea;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.chamada__aviso {
+  max-width: 300px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.85rem;
+  color: #cdd6dd;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.chamada__botoes {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: auto; /* empurra os botões para a parte de baixo da tela */
+}
+
+/* Botões redondos grandes: Atender (verde) e Recusar (vermelho). */
+.botao-circulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.botao-circulo__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+}
+
+.botao-circulo--atender .botao-circulo__icone {
+  background-color: #2ecc71;
+  box-shadow: 0 0 0 8px rgba(46, 204, 113, 0.16);
+  animation: chamada-pulsar 1.6s ease-in-out infinite;
+}
+
+.botao-circulo--recusar .botao-circulo__icone {
+  background-color: #e5484d;
+  box-shadow: 0 0 0 8px rgba(229, 72, 77, 0.16);
+}
+
+.botao-circulo:active .botao-circulo__icone {
+  transform: translateY(1px);
+}
+
+@keyframes chamada-pulsar {
+  0%,
+  100% {
+    box-shadow: 0 0 0 8px rgba(46, 204, 113, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgba(46, 204, 113, 0.05);
+  }
+}
+
+/* --- Chamada em andamento ------------------------------------------------ */
+.chamada__tempo {
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+  color: #e6edf2;
+}
+
+.chamada__audio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #a9b4bd;
+}
+
+/* Legendas: as falas aparecem aqui conforme são ditas no áudio. */
+.chamada__legendas {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  min-height: 0;
+  padding: 0.5rem;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  scrollbar-width: thin;
+}
+
+.chamada__fala {
+  max-width: 92%;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.chamada__fala--atendente {
+  align-self: flex-start;
+  color: #eef3f7;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px 10px 10px 3px;
+}
+
+.chamada__fala--usuario {
+  align-self: flex-end;
+  color: #eafaf0;
+  background-color: rgba(46, 204, 113, 0.28);
+  border-radius: 10px 10px 3px 10px;
+}
+
+/* --- Controles da chamada (Silenciar, Viva-voz, Encerrar) ---------------- */
+.chamada__controles {
+  display: flex;
+  /* flex-wrap evita que os botões sejam cortados em telas muito estreitas:
+     se faltar espaço, eles descem para uma segunda linha em vez de vazar. */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 0.5rem;
+}
+
+.controle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #dbe4ea;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.controle__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+}
+
+/* Botão "ligado" (ex.: mudo ou viva-voz ativos). */
+.controle--ativo .controle__icone {
+  color: #0b0f13;
+  background-color: #ffffff;
+}
+
+.controle--encerrar .controle__icone {
+  color: #ffffff;
+  background-color: #e5484d;
+}
+
+.controle:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.controle:active .controle__icone {
+  transform: translateY(1px);
+}
+
+/* --- Movimento reduzido: sem pulso no botão de atender ------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .botao-circulo--atender .botao-circulo__icone {
+    animation: none;
+  }
+}

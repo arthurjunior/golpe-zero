@@ -1,0 +1,181 @@
+/* ==========================================================================
+   home.css — estilos exclusivos da TELA INICIAL (src/pages/Home.jsx).
+   Está separado do global.css para que cada equipe cuide do seu próprio
+   arquivo sem risco de conflito.
+   ========================================================================== */
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 1.25rem 2.5rem;
+}
+
+/* --- Cabeçalho com o nome do projeto ------------------------------------- */
+.home__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+}
+
+.home__marca-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: var(--cor-primaria);
+  background-color: #e8f0fd;
+  border-radius: 14px;
+}
+
+.home__marca-nome {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--cor-primaria-escura);
+}
+
+/* --- Cartão principal ---------------------------------------------------- */
+.home__cartao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 680px;
+  padding: 2.25rem 2rem;
+  text-align: center;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* Selo: indica visualmente que o aplicativo é educativo e sem riscos. */
+.home__selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cor-verde);
+  background-color: var(--cor-verde-suave);
+  border-radius: 999px;
+}
+
+.home__titulo {
+  max-width: 22ch;
+  font-size: 2rem;
+  color: var(--cor-texto);
+}
+
+.home__descricao {
+  max-width: 46ch;
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Lista das situações fictícias -------------------------------------- */
+.home__situacoes {
+  width: 100%;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.home__situacoes-titulo {
+  font-weight: 700;
+  color: var(--cor-texto);
+}
+
+.home__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.home__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  background-color: var(--cor-fundo);
+  border-radius: 14px;
+}
+
+.home__item-numero {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  background-color: var(--cor-primaria);
+  border-radius: 50%;
+}
+
+.home__item-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__item-titulo {
+  font-size: 1.05rem;
+  color: var(--cor-texto);
+}
+
+.home__item-descricao {
+  font-size: 0.98rem;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Rodapé --------------------------------------------------------------- */
+.home__rodape {
+  max-width: 46ch;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* --- Ajustes para celulares ---------------------------------------------
+   Em telas estreitas: fonte um pouco menor, menos espaçamento e o botão
+   principal ocupando toda a largura (mais fácil de tocar com o dedo). */
+@media (max-width: 560px) {
+  .home {
+    gap: 1.1rem;
+    padding: 1rem 0.9rem 1.75rem;
+  }
+
+  .home__cartao {
+    gap: 1rem;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .home__titulo {
+    font-size: 1.6rem;
+  }
+
+  .home__descricao {
+    font-size: 1.02rem;
+  }
+
+  .home__cartao .btn {
+    width: 100%;
+  }
+}
+
+/* Em tablets e computadores, um pouco mais de respiro vertical. */
+@media (min-width: 900px) {
+  .home__cartao {
+    padding: 3rem 2.75rem;
+  }
+}
